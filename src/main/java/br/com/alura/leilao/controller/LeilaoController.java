@@ -28,7 +28,7 @@ import br.com.alura.leilao.model.Usuario;
 public class LeilaoController {
 
 	@Autowired
-	private LeilaoDao leiloes;
+	private LeilaoDao leiloesTeste;
 
 	@Autowired
 	private UsuarioDao usuarios;
@@ -36,14 +36,14 @@ public class LeilaoController {
 	@GetMapping
 	public ModelAndView index(Principal principal) {
 		ModelAndView mv = new ModelAndView("leilao/index");
-		mv.addObject("leiloes", leiloes.buscarTodos());
+		mv.addObject("leiloes", leiloesTeste.buscarTodos());
 		mv.addObject("usuarioLogado", principal);
 		return mv;
 	}
 
 	@GetMapping("/{id}/form")
 	public ModelAndView form(@PathVariable("id") Long id, Principal principal) {
-		Leilao leilao = leiloes.buscarPorId(id);
+		Leilao leilao = leiloesTeste.buscarPorId(id);
 		NovoLeilaoDto form = new NovoLeilaoDto(leilao);
 
 		ModelAndView mv = new ModelAndView("leilao/form");
@@ -66,7 +66,7 @@ public class LeilaoController {
 		Leilao leilao = leilaoForm.toLeilao();
 		leilao.setUsuario(usuario);
 
-		leiloes.salvar(leilao);
+		leiloesTeste.salvar(leilao);
 
 		attr.addFlashAttribute("message", "Leilão salvo com sucesso");
 
@@ -85,7 +85,7 @@ public class LeilaoController {
 	public ModelAndView show(@PathVariable Long id, Principal principal) {
 		ModelAndView mv = new ModelAndView("leilao/show");
 		mv.addObject("usuario", principal.getName());
-		mv.addObject("leilao", leiloes.buscarPorId(id));
+		mv.addObject("leilao", leiloesTeste.buscarPorId(id));
 		mv.addObject("lance", new NovoLanceDto());
 		return mv;
 	}

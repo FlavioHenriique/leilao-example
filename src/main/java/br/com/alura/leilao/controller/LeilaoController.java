@@ -31,7 +31,7 @@ public class LeilaoController {
 	private LeilaoDao leiloesTeste;
 
 	@Autowired
-	private UsuarioDao usuarios;
+	private UsuarioDao usuariosTeste;
 
 	@GetMapping
 	public ModelAndView index(Principal principal) {
@@ -62,7 +62,7 @@ public class LeilaoController {
 			return mv;
 		}
 
-		Usuario usuario = usuarios.buscarPorUsername(principal.getName());
+		Usuario usuario = usuariosTeste.buscarPorUsername(principal.getName());
 		Leilao leilao = leilaoForm.toLeilao();
 		leilao.setUsuario(usuario);
 
